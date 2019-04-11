@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+#imports a datetime
 from datetime import datetime
 
 def index(request):
     now = datetime.now()
-    # displays tab title
-    html_content = "<html><head><title>Learning Django</title></head><body>"
-    # displays the words Hello, Django! + the current time
-    html_content += "<strong>Hello Django!</strong> on " + now.strftime("%A, %d %B, %Y at %X")
-    html_content += "</body></html>"
-    # returns the above html content
-    return HttpResponse(html_content)
+
+    return render(
+        request,
+        "HelloDjangoApp/index.html",  # Relative path from the 'templates' folder to the template file
+        # "index.html", # Use this code for VS 2017 15.7 and earlier
+        {
+            'title' : "Hello Django",
+            'message' : "Hello Django!",
+            'content' : " on " + now.strftime("%A, %d %B, %Y at %X")
+        }
+    )
 
 # Create your views here.
